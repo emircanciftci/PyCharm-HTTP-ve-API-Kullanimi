@@ -7,7 +7,7 @@ import time
 folder = os.getcwd()
 excel_files = glob.glob(os.path.join(folder, "*.xls*"))
 if not excel_files:
-    print("❌ Klasörde hiç Excel dosyası bulunamadı!")
+    print("Klasörde hiç Excel dosyası bulunamadı!")
     input("Çıkmak için Enter'a basın...")
     exit()
 excel_path = max(excel_files, key=os.path.getctime)
@@ -15,7 +15,7 @@ backup_path = os.path.splitext(excel_path)[0] + "_sonuclar.xlsx"
 shutil.copy(excel_path, backup_path)
 df = pd.read_excel(backup_path)
 if "Kargo Takip Kodu" not in df.columns:
-    print("❌ Excel'de 'Kargo Takip Kodu' sütunu bulunamadı!")
+    print("Excel'de 'Kargo Takip Kodu' sütunu bulunamadı!")
     input("Çıkmak için Enter'a basın...")
     exit()
 
@@ -103,8 +103,6 @@ def check_status(row):
         else:
             translation = "Bulunamadı"
             location = "Bulunamadı"
-
-            # Tek hücrede birleştirmek istersen:
         return " / ".join(filter(None, [translation, location]))
 
 
@@ -121,8 +119,6 @@ def check_status(row):
 with ThreadPoolExecutor(max_workers=200) as executor:
     statuses = list(executor.map(check_status, df.to_dict('records')))
 
-
-# ✅ Yeni sütunu ekle ve kopya dosyaya yaz
 df["KargoDurumu"] = statuses
 df.to_excel(backup_path, index=False)
-print(f"✅ Sonuçlar {os.path.basename(backup_path)} dosyasına yazıldı.")
+print(f"Sonuçlar {os.path.basename(backup_path)} dosyasına yazıldı.")

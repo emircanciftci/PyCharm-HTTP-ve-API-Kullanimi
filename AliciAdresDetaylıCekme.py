@@ -108,10 +108,6 @@ for alici in data:
             }
             rows.append(row)
 
-
-
-
-
 df = pandas.DataFrame(rows)
 df.to_excel("Alıcı Listessi.xlsx", index=False)
 print("Excel dosyası oluşturuldu: Alıcı Listessi.xlsx")

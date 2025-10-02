@@ -14,7 +14,6 @@ credentials = read_credentials("credentials.txt")
 username = credentials.get("username")
 password = credentials.get("password")
 
-# 2️⃣ Login API'si ile token al
 login_url = "https://mikroapi.loomis.com.tr/api/account/login"
 login_payload = {"Email": username, "Password": password}
 login_headers = {"Content-Type": "application/json"}
@@ -31,7 +30,6 @@ if not token:
     exit()
 print("Token alındı!")
 
-# 3️⃣ Firma listesini al
 url = "https://mikroapi.loomis.com.tr/api/firma/tum-firma-listesi"
 headers = {
     "Authorization": f"Bearer {token}",
@@ -39,7 +37,6 @@ headers = {
     "Content-Type": "application/json"
 }
 
-# POST isteği (boş JSON gönderiyoruz)
 response = requests.post(url, headers=headers, json={})
 if response.status_code != 200:
     print("Firma listesi alınamadı:", response.status_code, response.text)
@@ -47,7 +44,6 @@ if response.status_code != 200:
 
 data = response.json().get("Data", [])
 
-# 4️⃣ Excel için liste oluştur
 rows = []
 for firma in data:
     row = {
@@ -79,7 +75,6 @@ for firma in data:
     }
     rows.append(row)
 
-# 5️⃣ DataFrame oluştur ve Excel'e yaz
 df = pd.DataFrame(rows)
 df.to_excel("Firma Listesi.xlsx", index=False)
 print("Excel dosyası oluşturuldu: Firma Listesi.xlsx")

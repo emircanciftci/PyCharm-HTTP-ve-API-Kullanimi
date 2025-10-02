@@ -1,6 +1,5 @@
 import requests
 import pandas
-import time
 
 def login(filepath):
     deger = {}

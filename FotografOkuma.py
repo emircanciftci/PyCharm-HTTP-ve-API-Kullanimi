@@ -106,7 +106,6 @@ for filename in os.listdir(folder_path):
             "Adres": adres,
             "İlçe": ilce,
             "İl": il,
-            #"Tüm Yazı": full_yazi #(#bu işareti kaldırarak yazının tamamını da yazdırabilirsin)
         })
 
 output_excel = r"Kargo_Detay_Listesi.xlsx"

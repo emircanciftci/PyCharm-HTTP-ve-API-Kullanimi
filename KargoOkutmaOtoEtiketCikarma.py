@@ -56,18 +56,15 @@ while True:
             time.sleep(1)
             wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "span.dx-checkbox-icon"))).click()
 
-            #şuan ki pencere sayısını alıyor
             original_window_count = len(driver.window_handles)
 
             wait.until(EC.element_to_be_clickable((By.XPATH, "//button[.//span[text()=' Hepsijet Barkod ']]"))).click()
 
-            # Yeni pencere açılana kadar bekle
             WebDriverWait(driver, 10).until(lambda d: len(d.window_handles) > original_window_count)
 
-            # Pencere sayısı tekrar azalana (orijinal sayıya dönene) kadar ENTER'a basmaya devam et
             while len(driver.window_handles) > original_window_count:
                 pyautogui.press('enter')
-                time.sleep(0.2)  # Çok kısa bekleme
+                time.sleep(0.2)
 
             wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "span.dx-checkbox-icon"))).click()
             search_input.clear()
